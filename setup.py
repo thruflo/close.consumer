@@ -4,7 +4,7 @@ setup(
     name = 'close.consumer',
     version = '0.2',
     description = 'gevent based Streaming API consumer',
-    long_description = 'Abstract base classes for a long running, streaming API consumer and a specific implementation that puts the data into a redis queue and notifies a separate process which processes the data in batches.\n\nCoded initially to post batches of statuses from the Twitter Streaming API to an appengine webhook.  May (or may not) be usable for other purposes.',
+    long_description = open('README.rst').read(),
     author = 'James Arthur',
     author_email = 'thruflo@googlemail.com',
     url = 'http://github.com/thruflo/close.consumer',
