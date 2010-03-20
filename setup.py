@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name = 'close.consumer',
-    version = '0.2',
+    version = '0.2.1',
     description = 'gevent based Streaming API consumer',
     long_description = open('README.rst').read(),
     author = 'James Arthur',
