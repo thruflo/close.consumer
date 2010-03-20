@@ -6,7 +6,7 @@ Coded initially to send batches of statuses from the `Twitter Streaming API`_ to
 
 Presumes the data coming down the pipe is `Chunked Transfer Encoded`_.
 
-..: _redis: http://code.google.com/p/redis/
-..: _gevent: http://www.gevent.org/
-..: _`Twitter Streaming API`: http://apiwiki.twitter.com/Streaming-API-Documentation
-..: _`Chunked Transfer Encoded`: http://en.wikipedia.org/wiki/Chunked_transfer_encoding
+.. _redis: http://code.google.com/p/redis/
+.. _gevent: http://www.gevent.org/
+.. _Twitter Streaming API: http://apiwiki.twitter.com/Streaming-API-Documentation
+.. _Chunked Transfer Encoded: http://en.wikipedia.org/wiki/Chunked_transfer_encoding
