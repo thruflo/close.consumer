@@ -15,14 +15,7 @@ import logging
 try:
     import simplejson as json
 except ImportError:
-    try:
-        import json
-    except ImportError:
-        try:
-            from django.utils import simplejson as json
-        except ImportError:
-            raise ImportError, "Can't load a json library"
-        
+    import json
     
 def _json_decode(value):
     if isinstance(value, str):
