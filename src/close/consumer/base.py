@@ -23,7 +23,7 @@ monkey.patch_all()
 from gevent import queue
 notification_queue = queue.Queue()
 
-from gevent import sleep, socket
+from gevent import sleep, socket, ssl
 
 import cgi
 import logging
@@ -120,18 +120,26 @@ class BaseConsumer(ChunkReadingMixin):
     sock = None
     
     def __init__(
-            self, host, path, port=80, params={}, headers={},
+            self, host, path, port=None, params={}, headers={},
             timeout=61, username=None, password=None, 
             min_tcp_ip_delay=0.25, max_tcp_ip_delay=16,
-            min_http_delay=10, max_http_delay=240
+            min_http_delay=10, max_http_delay=240,
+            secure=True
         ):
         """Store config and build the connection headers.
         """
-        
+
+        if port is None:
+            if secure:
+                port = 443
+            else:
+                port = 80
+
         self.host = host
         self.port = port
         self.path = path
         self.body = unicode_urlencode(params)
+        self.secure = secure
         if username and password:
             headers['Authorization'] = generate_auth_header(username, password)
         header_lines = [
@@ -260,7 +268,11 @@ class BaseConsumer(ChunkReadingMixin):
         notify_on_exit = True
         while True:
             try:
-                self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                raw_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                if self.secure:
+                    self.sock = ssl.wrap_socket(raw_sock)
+                else:
+                    self.sock = raw_sock
                 self.sock.setsockopt(socket.SOL_SOCKET, socket.SO_KEEPALIVE, 1)
                 self.sock.settimeout(self.timeout)
                 self.sock.connect((self.host, self.port))
