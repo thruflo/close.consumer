@@ -311,6 +311,8 @@ class BaseConsumer(ChunkReadingMixin):
             self._notify('exit', self.id)
         
         
+    def get_headers(self):
+        return {}
     
     
 
@@ -444,7 +446,8 @@ class BaseManager(object):
             host=self.host,
             params=self.get_params(),
             username=self.username, 
-            password=self.password
+            password=self.password,
+            headers=self.get_headers(),
         )
         logging.info(consumer.id)
         
